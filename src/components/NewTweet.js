@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { handleAddTweet } from "../actions/tweets";
+import { useHistory } from "react-router-dom";
 
 const NewTweet = ({ id }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const [text, setText] = useState("");
@@ -15,6 +17,12 @@ const NewTweet = ({ id }) => {
     dispatch(handleAddTweet(text, id));
 
     setText("");
+
+    const redirectHome = id ? false : true;
+    if (redirectHome) {
+      history.push("/");
+    }
+
     console.log("New Tweet ", text);
   };
 
